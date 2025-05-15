@@ -6,6 +6,13 @@ import CardHeader from 'react-bootstrap/CardHeader';
 
 
 function ShopCard({producto, carrito, setCarrito}){
+
+    function findArrayElementByID(array, id) {
+        return array.find((element) => {
+          return element.id === id;
+        })
+      }
+
     return (
         <Card style={{ width: '18rem', height:'30rem' }}>
         <CardHeader className="text-center" style={{backgroundColor: '#dee2e6', width:'18rem', height: '18rem'}} >
@@ -21,13 +28,21 @@ function ShopCard({producto, carrito, setCarrito}){
         </Card.Body>
         <CardFooter className="text-end" style={{backgroundColor:'#343a40'}}>
             <Button variant="secondary" onClick={()=>{
+                if(!findArrayElementByID(carrito, producto.id))
+                {    
                 setCarrito([
                     ...carrito,
-                    { id: producto.id, name: producto.title }
+                    { id: producto.id, title: producto.title, price: producto.price, image: producto.images[0], cantidad: 1 }
                   ]);
+                }
+                else
+                {
+                    setCarrito(carrito.map(a => (a.id === producto.id ? {...a, cantidad: a.cantidad+1} : a)))
+                }
             }}>comprar</Button>
         </CardFooter>
         </Card>
+
     )
 }
 

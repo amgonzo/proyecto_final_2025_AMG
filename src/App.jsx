@@ -7,6 +7,9 @@ import Header from './components/Header';
 import { useState } from 'react';
 import Footer from './components/footer';
 import Login from './pages/Login';
+import Perfil from './pages/protectedroute/Perfil';
+import ProtectedRoute from './components/ProtectedRoute';
+import Carrito from './pages/carrito';
 
 function App() {
   const [carrito, setCarrito] = useState([]);
@@ -21,6 +24,10 @@ function App() {
               <Route path='/shop' element={<Shop carrito={carrito} setCarrito={setCarrito}/>} />
               <Route path='/contact' element={<Contact/>} />
               <Route path='/login' element={<Login/>} />
+              <Route path='/carrito' element={<Carrito carrito={carrito}/>} />
+              <Route path="/perfil" element={
+                <ProtectedRoute><Perfil /></ProtectedRoute>
+              } />
           </Routes>
           <Footer/>
         </div>
