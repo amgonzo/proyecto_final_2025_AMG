@@ -7,7 +7,7 @@ const Perfil=()=>
 
     return(
     <Container className="mt-4">
-        <h1>Home</h1>
+        <h1>Perfil</h1>
         <p>Pagina de {usuario}</p>
     </Container>
         );

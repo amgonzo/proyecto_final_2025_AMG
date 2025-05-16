@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 
 function Header({carrito}){
     const navigate = useNavigate();
+    const contar = () => { 
+        return carrito.reduce((cantidad, item) => cantidad + item.cantidad, 0);
+    }
+
     return(
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -16,7 +20,7 @@ function Header({carrito}){
                 <button type="button" className="btn btn-dark position-relative">
                 <FontAwesomeIcon icon={faCartShopping} onClick={()=>(navigate('/carrito'))}/>
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
-                        {carrito.length}
+                        {contar()}
                         <span className="visually-hidden">unread messages</span>
                     </span>
                 </button>
