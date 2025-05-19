@@ -3,6 +3,7 @@ import { Container, Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
 
 function Header({carrito}){
     const navigate = useNavigate();
@@ -13,7 +14,9 @@ function Header({carrito}){
     return(
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand>Empresa</Navbar.Brand>
+                <Image src="logo.png" style={{height:"3em"}} />
+                
+                <Navbar.Brand>Shoppineando</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Brand></Navbar.Brand>
                 <Navbar.Text className="ms-auto">

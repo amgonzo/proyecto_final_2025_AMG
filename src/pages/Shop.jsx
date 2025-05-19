@@ -44,16 +44,15 @@ const Shop=({carrito, setCarrito})=>
         }
 
         return(
-<Container className="mt-4">
-    <h1>Shop</h1>
-    <p>Pagina de Inicio de la aplicacion</p>
+<Container className="mt-4" style={{marginBottom:50}}>
+    <h2>Shop</h2>
     <Categorias filtroCategoria={filtroCategoria}/>
         <Container className='mt-4'>
-            <Row xs={1} md={4} className="g-4">
+            <Row xs={1} md={2} lg={3} className="g-4 h-100">
                 {
                   
                 productosFiltrados.map((producto) => ( 
-                <Col key={producto.id}>
+                <Col key={producto.id} className="d-flex align-items-stretch">
                 <ShopCard producto={producto} carrito={carrito} setCarrito={setCarrito}/>
                 </Col>
             ))}

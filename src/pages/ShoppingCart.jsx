@@ -1,35 +1,36 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Nav } from "react-bootstrap";
 import ItemShoppingCard from "../components/ItemShoppingCard";
+import { Link } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Card from 'react-bootstrap/Card';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCcMastercard, faCcVisa, faCcAmex, faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 
 const ShoppingCart=({carrito, setCarrito})=>
     {
-        const total = () => { 
-            return carrito.reduce((total, item) => total + item.price * item.cantidad, 0).toFixed(2);
+        const shipping = 100;
+        const total = (ship) => { 
+            if(ship != null)
+            {return (carrito.reduce((total, item) => total + item.price * item.cantidad, 0) + ship).toFixed(2);}
+            else
+            {return carrito.reduce((total, item) => total + item.price * item.cantidad, 0).toFixed(2);}
+        }
+        const contar = () => { 
+            return carrito.reduce((cantidad, item) => cantidad + item.cantidad, 0);
         }
 
     return(
-    <Container className="mt-4">
-        <h1>Carrito</h1>
-        <p>Pagina de Carrito de compras</p>
-        <div className="row">     
-            <div className="col-lg-8">
-                <h5 className="mb-3"><a href="#!" className="text-body"><i
-                      className="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+    <Container className="mt-4" style={{ marginBottom:50 }}>
+        <Row>     
+            <Col className="col-lg-8">
+                <h5 className="mb-3"><Nav.Link as={Link} to="/shop">Seguir Comprando</Nav.Link></h5>
+                
                 <hr/>
 
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <div>
-                    <p className="mb-1">Shopping cart</p>
-                    <p className="mb-0">You have 4 items in your cart</p>
-                  </div>
-                  <div>
-                    <p className="mb-0"><span className="text-muted">Sort by:</span> <a href="#!"
-                        className="text-body">price <i className="fas fa-angle-down mt-1"></i></a></p>
+                    <p className="mb-0">Usted tiene {contar()} items in su carrito</p>
                   </div>
                 </div>       
                 {carrito.map((compra) =>(
@@ -38,18 +39,20 @@ const ShoppingCart=({carrito, setCarrito})=>
                 </Col>
                 ))
                 }
+                <hr/>
                 <div className="d-flex justify-content-between align-items-center mb-4">
+                <div></div>
                   <div>
-                    <p className="mb-1">Total:</p>
+                    <p className="mb-1"><h3>Total:</h3></p>
                   </div>
                   <div>
-                    <p className="mb-0"><span className="text-muted"><h2>{total()}</h2></span></p>
+                    <p className="mb-0"><span className="text-muted"><h2>${total()}</h2></span></p>
                   </div>
                 </div>       
-              </div>
+              </Col>
 
               {/********cambio de parte**************** */}
-              <div className="col-lg-4">
+              <Col className="col-lg-4">
 
                 <div className="card bg-secondary text-white rounded-3">
                 <div className="card-body">
@@ -57,14 +60,12 @@ const ShoppingCart=({carrito, setCarrito})=>
                     <h5 className="mb-0">Card details</h5>
                     </div>
                     <p className="small mb-2">Card type</p>
-                    <a href="#!" type="submit" className="text-white"><i
-                        className="fab fa-cc-mastercard fa-2x me-2"></i></a>
-                    <a href="#!" type="submit" className="text-white"><i
-                        className="fab fa-cc-visa fa-2x me-2"></i></a>
-                    <a href="#!" type="submit" className="text-white"><i
-                        className="fab fa-cc-amex fa-2x me-2"></i></a>
-                    <a href="#!" type="submit" className="text-white"><i className="fab fa-cc-paypal fa-2x"></i></a>
-
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                    <a href="#!" type="submit" className="text-white"><FontAwesomeIcon icon={faCcMastercard} className="fab fa-cc-paypal fa-2x"/></a>
+                    <a href="#!" type="submit" className="text-white"><FontAwesomeIcon icon={faCcVisa} className="fab fa-cc-paypal fa-2x" /></a>
+                    <a href="#!" type="submit" className="text-white"><FontAwesomeIcon icon={faCcAmex} className="fab fa-cc-paypal fa-2x"  /></a>
+                    <a href="#!" type="submit" className="text-white"><FontAwesomeIcon icon={faCcPaypal} className="fab fa-cc-paypal fa-2x"  /></a>
+                    </div>
                     <form className="mt-4">
                     <div className="form-outline form-white mb-4">
                         <input type="text" id="typeName" className="form-control form-control-lg" siez="17"
@@ -106,26 +107,25 @@ const ShoppingCart=({carrito, setCarrito})=>
 
                     <div className="d-flex justify-content-between">
                     <p className="mb-2">Shipping</p>
-                    <p className="mb-2">$20.00</p>
+                    <p className="mb-2">${shipping}</p>
                     </div>
 
                     <div className="d-flex justify-content-between mb-4">
                     <p className="mb-2">Total(Incl. taxes)</p>
-                    <p className="mb-2">$4818.00</p>
+                    <p className="mb-2">${total(shipping)}</p>
                     </div>
 
                     <button type="button" className="btn btn-info btn-block btn-lg">
                     <div className="d-flex justify-content-between">
-                        <span>$4818.00</span>
-                        <span>Checkout <i className="fas fa-long-arrow-alt-right ms-2"></i></span>
+                        <span>Finalizar Compra<i className="fas fa-long-arrow-alt-right ms-2"></i></span>
                     </div>
                     </button>
 
                 </div>
                 </div>
 
-            </div>
-        </div>
+            </Col>
+        </Row>
     </Container>
         );
     };

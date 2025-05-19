@@ -1,12 +1,45 @@
-import React from "react";
+import {React, useState} from "react";
 import { Container } from "react-bootstrap";
 import {Form, Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Login=()=>
     {
         const navigate = useNavigate();
-        const handleLogin = () => {
+        const [password, setPassword] = useState('');
+        const [email, setEmail] = useState('');
+
+        const emailEsValido = (email) => {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+          };
+
+        const handleLogin = (e) => {
+            
+            e.preventDefault();
+            
+            if (password.trim() === '' || email.trim() === '') 
+                {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Campos incompletos',
+                  text: 'POr favor completar todos los campos',
+                });
+                return;
+              }
+
+              if (!emailEsValido(email)) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Email no es valido',
+                  text: 'Ingresá un email con formato valido.',
+                });
+                return;
+              }
+              setPassword('');
+              setEmail('');
+
             localStorage.setItem('auth', 'true');
             navigate('/perfil');
             localStorage.setItem('id', 'userAdmin');
@@ -15,16 +48,16 @@ const Login=()=>
     return(
     <Container className="mt-5" style={{ maxWidth: 400, marginBottom:50 }}>
         <h1>Login</h1>
-        <Form>
+        <Form onSubmit={handleLogin}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="name@example.com" />
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" placeholder="suemail@example.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="password" />
+            <Form.Control type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
         </Form.Group>
-        <Button variant="secondary" onClick={handleLogin}>Enviar</Button>
+        <Button variant="secondary" type="submit">Enviar</Button>
         </Form>
     </Container>
         );

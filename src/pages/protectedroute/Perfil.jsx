@@ -6,9 +6,9 @@ const Perfil=()=>
         const usuario = localStorage.getItem('id');
 
     return(
-    <Container className="mt-4">
+    <Container className="mt-4" style={{marginBottom:50}}>
         <h1>Perfil</h1>
-        <p>Pagina de {usuario}</p>
+        <p>de {usuario}</p>
     </Container>
         );
     };

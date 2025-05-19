@@ -50,7 +50,7 @@ function Categorias({filtroCategoria}) {
     <Carousel data-bs-theme="dark">
             {categorias.map((categ) => (
                 <Carousel.Item key={categ.id}>
-                    <div style={{backgroundColor: '#dee2e6', width:'18rem', height: '18rem'}}><img className="d-block w-100" src={categ.image} alt={categ.slug} /></div>
+                    <div style={{backgroundColor: '#dee2e6', width:'18rem', height: '18rem'}}><img className="d-block w-100 " src={categ.image} alt={categ.slug} /></div>
                     <Carousel.Caption>
                         <h5><a href='#' onClick={() => filtroCategoria(categ.id)} style={{color:"grey"}}>{categ.name}</a></h5>
                     </Carousel.Caption>
