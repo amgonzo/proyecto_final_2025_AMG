@@ -47,15 +47,15 @@ const Login=()=>
 
     return(
     <Container className="mt-5" style={{ maxWidth: 400, marginBottom:50 }}>
-        <h1>Login</h1>
+        <h1>Entrar</h1>
         <Form onSubmit={handleLogin}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="suemail@example.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <Form.Control type="email" placeholder="su-email@example.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <Form.Control type="password" placeholder="su password" value={password} onChange={(e) => setPassword(e.target.value)}/>
         </Form.Group>
         <Button variant="secondary" type="submit">Enviar</Button>
         </Form>

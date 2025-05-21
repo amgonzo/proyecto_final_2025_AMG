@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import Perfil from './pages/protectedroute/Perfil';
 import ProtectedRoute from './components/ProtectedRoute';
 import ShoppingCart from './pages/ShoppingCart';
-
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   const [carrito, setCarrito] = useState([]);
@@ -18,13 +18,14 @@ function App() {
     <div>
       <Router>
         <div>
-          <Header carrito={carrito}/>
-          <Navegacion/>
+          <Header carrito={carrito} setCarrito={setCarrito}/>
+          <Navegacion carrito={carrito} setCarrito={setCarrito}/>
           <Routes>
               <Route path='/' element={<Home/>} />
               <Route path='/shop' element={<Shop carrito={carrito} setCarrito={setCarrito}/>} />
               <Route path='/contact' element={<Contact/>} />
               <Route path='/login' element={<Login/>} />
+              <Route path='/productdetail/:idProducto' element={<ProductDetail/>} />
               <Route path='/carrito' element={<ShoppingCart carrito={carrito} setCarrito={setCarrito}/>} />
               <Route path="/perfil" element={
                 <ProtectedRoute><Perfil /></ProtectedRoute>

@@ -1,4 +1,5 @@
 import { Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardFooter, Button, Col, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function ShopCard({producto, carrito, setCarrito}){
 
@@ -8,16 +9,18 @@ function ShopCard({producto, carrito, setCarrito}){
         })
       }
 
+      const navigate = useNavigate();
+
       return (
         <Card style={{ width: '20rem' }}>
           <CardHeader className="text-center" style={{ backgroundColor: '#dee2e6', height: '18rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Card.Img variant="top" src={producto.images[0]} style={{ width: '10rem', maxHeight: '100%', objectFit: 'contain' }} />
+            <Card.Img variant="top" src={producto.images[0]} style={{ width: '10rem', maxHeight: '100%', objectFit: 'contain', cursor: "pointer" }} onClick={() => {navigate('/productdetail/'+producto.id);}}/>
           </CardHeader>
           <CardBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '60%' }}>
             <div>
               <CardTitle><h3><b>{producto.title}</b></h3></CardTitle>
               <div>
-                {producto.description.substring(0, 50)}<h6 className="text-end"><button className="btn btn-link">Show more</button></h6>
+                {producto.description.substring(0, 50)}<h6 className="text-end"><button className="btn" >Mostrar mas</button></h6>
               </div>
             </div>
             <div>

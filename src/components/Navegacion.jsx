@@ -1,18 +1,27 @@
-import React from 'react';
+import {React, useState} from 'react';
 import {Navbar,Nav,Container} from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import CarritoLateral from './CarritoLateral';
 
-const Navegacion = () => {
+const Navegacion = ({carrito, setCarrito}) => {
     const isAuth = localStorage.getItem('auth') === 'true';
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
 
     const cerrarSesion = () => {
       localStorage.removeItem('auth');
       navigate('/login');
     };
-
+    
+    const contar = () => { 
+      return carrito.reduce((cantidad, item) => cantidad + item.cantidad, 0);
+    }
+    
     return (
+      <>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">Menu</Navbar.Brand>
@@ -34,10 +43,22 @@ const Navegacion = () => {
             ) : (
               <Button variant="outline-light" onClick={cerrarSesion}>Cerrar sesión</Button>
             )}
-          </Nav>
+          
+          <Navbar.Text className="ms-auto">
+                <button variant="outline-light" type="button" className="btn btn-dark position-relative">
+                <FontAwesomeIcon icon={faCartShopping} onClick={()=>(setShow(true))}/>
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+                        {contar()}
+                        <span className="visually-hidden">unread messages</span>
+                    </span>
+                </button>
+                </Navbar.Text>
+                </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <CarritoLateral show={show} setShow={setShow} carrito={carrito} setCarrito={setCarrito}/>
+      </>
     );
   };
 

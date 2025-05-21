@@ -56,15 +56,15 @@ const Contact=()=>
         <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Nombre</Form.Label>
-            <Form.Control type="text" placeholder="escriba su Nombre y Apellido" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
+            <Form.Control type="text" placeholder="su Nombre y Apellido" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="suemail@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Form.Control type="email" placeholder="su-email@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Mensaje</Form.Label>
-            <Form.Control as="textarea" rows={3} placeholder="Su mensaje aqui"  value={mensaje} onChange={(e) => setMensaje(e.target.value)}/>
+            <Form.Control as="textarea" rows={3} placeholder="su mensaje aqui"  value={mensaje} onChange={(e) => setMensaje(e.target.value)}/>
         </Form.Group>
         <Button variant="secondary" type="submit">Enviar</Button>
         </Form>
