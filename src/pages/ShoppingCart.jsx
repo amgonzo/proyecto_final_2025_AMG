@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useContext} from 'react';
 import { Container, Nav } from "react-bootstrap";
 import ItemShoppingCard from "../components/ItemShoppingCard";
 import { Link } from 'react-router-dom';
@@ -6,20 +6,12 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcMastercard, faCcVisa, faCcAmex, faCcPaypal } from '@fortawesome/free-brands-svg-icons';
+import {CarritoContext} from '../context/CarritoContext';
 
-const ShoppingCart=({carrito, setCarrito})=>
+const ShoppingCart=()=>
     {
+        const { carrito, cantidaditems, importetotal } = useContext(CarritoContext);
         const shipping = 100;
-        const total = (ship) => { 
-            if(ship != null)
-            {return (carrito.reduce((total, item) => total + item.price * item.cantidad, 0) + ship).toFixed(2);}
-            else
-            {return carrito.reduce((total, item) => total + item.price * item.cantidad, 0).toFixed(2);}
-        }
-        const contar = () => { 
-            return carrito.reduce((cantidad, item) => cantidad + item.cantidad, 0);
-        }
-
     return(
     <Container className="mt-4" style={{ marginBottom:50 }}>
         <Row>     
@@ -30,12 +22,12 @@ const ShoppingCart=({carrito, setCarrito})=>
 
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <div>
-                    <p className="mb-0">Usted tiene {contar()} items in su carrito</p>
+                    <p className="mb-0">Usted tiene {cantidaditems()} items in su carrito</p>
                   </div>
                 </div>       
                 {carrito.map((compra) =>(
                 <Col key={compra.id}>
-                <ItemShoppingCard producto={compra} carrito={carrito} setCarrito={setCarrito}/>
+                <ItemShoppingCard producto={compra}/>
                 </Col>
                 ))
                 }
@@ -46,7 +38,7 @@ const ShoppingCart=({carrito, setCarrito})=>
                     <p className="mb-1"><h3>Total:</h3></p>
                   </div>
                   <div>
-                    <p className="mb-0"><span className="text-muted"><h2>${total()}</h2></span></p>
+                    <p className="mb-0"><span className="text-muted"><h2>${importetotal()}</h2></span></p>
                   </div>
                 </div>       
               </Col>
@@ -102,7 +94,7 @@ const ShoppingCart=({carrito, setCarrito})=>
 
                     <div className="d-flex justify-content-between">
                     <p className="mb-2">Subtotal</p>
-                    <p className="mb-2">${total()}</p>
+                    <p className="mb-2">${importetotal()}</p>
                     </div>
 
                     <div className="d-flex justify-content-between">
@@ -112,7 +104,7 @@ const ShoppingCart=({carrito, setCarrito})=>
 
                     <div className="d-flex justify-content-between mb-4">
                     <p className="mb-2">Total(Incl. taxes)</p>
-                    <p className="mb-2">${total(shipping)}</p>
+                    <p className="mb-2">${importetotal(shipping)}</p>
                     </div>
 
                     <button type="button" className="btn btn-info btn-block btn-lg">

@@ -12,7 +12,7 @@ const ProductDetail=()=>
         useEffect(()=>
             {
               // hacer el pedido de la api
-              fetch('https://api.escuelajs.co/api/v1/products/'+idProducto)
+              fetch('https://dummyjson.com/products/'+idProducto)
               .then(res=>res.json())
               .then(data=>{
                 setProducto(data);

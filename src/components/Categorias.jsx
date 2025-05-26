@@ -6,43 +6,38 @@ function Categorias({ onCategoriaChange }) {
         [
           {
             "id": 1,
-            "name": "clothess",
-            "slug": "clothess",
-            "image": "https://i.imgur.com/QkIa5tT.jpeg",
-            "creationAt": "2025-05-12T13:19:46.000Z",
-            "updatedAt": "2025-05-12T16:19:04.000Z"
+            "name": "Beauty",
+            "slug": "beauty",
+            "image": "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/1.webp",
+            "category":"beauty",
           },
           {
             "id": 2,
-            "name": "Electronics",
-            "slug": "electronics",
-            "image": "https://i.imgur.com/ZANVnHE.jpeg",
-            "creationAt": "2025-05-12T13:19:46.000Z",
-            "updatedAt": "2025-05-12T13:19:46.000Z"
+            "name": "Fragrances",
+            "slug": "fragrances",
+            "image": "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/1.webp",
+            "category":"fragrances",
           },
           {
             "id": 3,
-            "name": "Furniture",
-            "slug": "furniture",
-            "image": "https://i.imgur.com/Qphac99.jpeg",
-            "creationAt": "2025-05-12T13:19:46.000Z",
-            "updatedAt": "2025-05-12T16:03:07.000Z"
+            "name": "Smartphones",
+            "slug": "smartphones",
+            "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/1.webp",
+            "category":"smartphones",
           },
           {
             "id": 4,
-            "name": "Shoes",
-            "slug": "shoes",
-            "image": "https://i.imgur.com/qNOjJje.jpeg",
-            "creationAt": "2025-05-12T13:19:46.000Z",
-            "updatedAt": "2025-05-12T13:19:46.000Z"
+            "name": "Furniture",
+            "slug": "furniture",
+            "image": "https://cdn.dummyjson.com/product-images/furniture/wooden-bathroom-sink-with-mirror/1.webp",
+            "category":"furniture",
           },
           {
             "id": 5,
-            "name": "Miscellaneous",
-            "slug": "miscellaneous",
-            "image": "https://i.imgur.com/BG8J0Fj.jpg",
-            "creationAt": "2025-05-12T13:19:46.000Z",
-            "updatedAt": "2025-05-12T13:19:46.000Z"
+            "name": "Groceries",
+            "slug": "groceries",
+            "image": "https://cdn.dummyjson.com/product-images/groceries/apple/1.webp",
+            "category":"groceries",
           },
       ]
 
@@ -54,7 +49,7 @@ function Categorias({ onCategoriaChange }) {
                       <img className="d-block w-100 " src={categ.image} alt={categ.slug} />
                     </div>
                     <Carousel.Caption>
-                        <h5><a href='#' onClick={() => onCategoriaChange(categ.id)} style={{color:"grey"}}>{categ.name}</a></h5>
+                        <h5><a href='#' onClick={() => onCategoriaChange(categ.category)} style={{color:"grey"}}>{categ.name}</a></h5>
                     </Carousel.Caption>
                 </Carousel.Item>
             ))}

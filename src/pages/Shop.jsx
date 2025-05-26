@@ -5,20 +5,23 @@ import Row from 'react-bootstrap/Row';
 import ShopCard from '../components/ShopCard';
 import Categorias from "../components/Categorias";
 
-const Shop = ({ carrito, setCarrito }) => {
+const Shop = () => {
   const [categoria, setCategoria] = useState(null);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let url = 'https://api.escuelajs.co/api/v1/products';
+    //let url = 'https://api.escuelajs.co/api/v1/products';
+    //let  url='https://fakestoreapi.com/products';
+    let url='https://dummyjson.com/products';
     if (categoria) {
-      url = 'https://api.escuelajs.co/api/v1/products/?categoryId=' + categoria;
+      //url = 'https://api.escuelajs.co/api/v1/products/?categoryId=' + categoria;
+      url = 'https://dummyjson.com/products/category/' + categoria;
     }
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        setProductos(data);
+        setProductos(data.products);
         setLoading(false);
       })
       .catch(err => {
@@ -43,7 +46,7 @@ const Shop = ({ carrito, setCarrito }) => {
             <Row xs={1} md={2} lg={3} className="g-4 h-100">
               {productos.map((producto) => (
                 <Col key={producto.id} className="d-flex align-items-stretch">
-                  <ShopCard producto={producto} carrito={carrito} setCarrito={setCarrito} />
+                  <ShopCard producto={producto} />
                 </Col>
               ))}
             </Row>

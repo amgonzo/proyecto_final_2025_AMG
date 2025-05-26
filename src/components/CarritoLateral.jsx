@@ -4,11 +4,15 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ItemCarritoLateral from './ItemCarritoPaginaLateral';
 import { useNavigate } from 'react-router-dom';
+import {CarritoContext} from '../context/CarritoContext';
+import {React, useContext} from 'react';
 
-function CarritoLateral({show, setShow, carrito, setCarrito}) {
+function CarritoLateral({show, setShow}) {
 
   const handleClose = () => setShow(false);
   const navigate = useNavigate();
+
+  const { carrito } = useContext(CarritoContext);
 
   function finalizar () {
     navigate('/carrito');
@@ -26,7 +30,7 @@ function CarritoLateral({show, setShow, carrito, setCarrito}) {
 
         carrito.map((compra) =>(
                 <Col key={compra.id}>
-                <ItemCarritoLateral producto={compra} carrito={carrito} setCarrito={setCarrito}/>
+                <ItemCarritoLateral producto={compra}/>
                 </Col>
                 ))
         }

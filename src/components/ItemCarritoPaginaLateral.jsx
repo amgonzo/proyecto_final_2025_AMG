@@ -1,27 +1,23 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardFooter from 'react-bootstrap/CardFooter';
-import CardSubtitle from 'react-bootstrap/CardSubtitle';
-import CardHeader from 'react-bootstrap/CardHeader';
 import NumberInputWithControls from './NumberInputWithControls'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col } from 'react-bootstrap';
+import {CarritoContext} from '../context/CarritoContext';
+import {React, useContext} from 'react';
 
-function ItemCarritoLateral({producto, carrito, setCarrito}) {
+function ItemCarritoLateral({producto}) {
   
   const handleQuantityChange = (newQuantity) => {
     //console.log('Nueva cantidad:', newQuantity);
     //setQuantity(newQuantity);
-    setCarrito(carrito.map(a => (a.id === producto.id ? {...a, cantidad: newQuantity} : a)))
+    cambiarcantidaditems(producto, newQuantity);
+    //setCarrito(carrito.map(a => (a.id === producto.id ? {...a, cantidad: newQuantity} : a)))
+    
     // Aquí puedes realizar otras acciones con la nueva cantidad
   };
 
-  const handleDeleteCard = () => {
-    const newArray = carrito.filter(item => item.id !== producto.id)
-    setCarrito(newArray);
-  }
+  const { cambiarcantidaditems, quitardelcarrito } = useContext(CarritoContext);
   
   return (
       <div className="card mb-3">
@@ -57,7 +53,7 @@ function ItemCarritoLateral({producto, carrito, setCarrito}) {
                 <h5 className="mb-0">${(producto.price * producto.cantidad).toFixed(2)}</h5>
               </div>
               <button type="button" className="btn position-relative">
-                <FontAwesomeIcon icon={faTrashCan} onClick={handleDeleteCard}/>
+                <FontAwesomeIcon icon={faTrashCan} onClick={() => quitardelcarrito(producto)}/>
                 </button>
             </div>
                 </Col>
