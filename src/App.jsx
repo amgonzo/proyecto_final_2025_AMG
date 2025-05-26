@@ -11,6 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ShoppingCart from './pages/ShoppingCart';
 import ProductDetail from './pages/ProductDetail';
 import {CarrtioProvider} from './context/CarritoContext';
+import { Container } from 'react-bootstrap';
 
 function App() {
   //const [carrito, setCarrito] = useState([]);
@@ -18,9 +19,10 @@ function App() {
     <div>
        <CarrtioProvider>
         <Router>
-          <div>
+          <div className="d-flex flex-column min-vh-100">
             <Header/>
             <Navegacion/>
+            <Container fluid className="flex-grow-1">
             <Routes>
                 <Route path='/' element={<Home/>} />
                 <Route path='/shop' element={<Shop/>} />
@@ -32,6 +34,7 @@ function App() {
                   <ProtectedRoute><Perfil /></ProtectedRoute>
                 } />
             </Routes>
+            </Container>
             <Footer/>
           </div>
         </Router>
