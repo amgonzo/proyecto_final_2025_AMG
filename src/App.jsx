@@ -12,6 +12,7 @@ import ShoppingCart from './pages/ShoppingCart';
 import ProductDetail from './pages/ProductDetail';
 import {CarrtioProvider} from './context/CarritoContext';
 import { Container } from 'react-bootstrap';
+import { Toaster} from 'react-hot-toast';
 
 function App() {
   //const [carrito, setCarrito] = useState([]);
@@ -36,6 +37,7 @@ function App() {
             </Routes>
             </Container>
             <Footer/>
+            <Toaster position="top-center" reverseOrder={false} />
           </div>
         </Router>
       </CarrtioProvider>

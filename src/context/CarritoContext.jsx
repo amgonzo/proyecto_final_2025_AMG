@@ -1,4 +1,5 @@
-import { createContext, useState } from "react"
+import { createContext, useState } from "react";
+import toast from 'react-hot-toast';
 
 export const CarritoContext = createContext();
 
@@ -17,17 +18,21 @@ export const CarrtioProvider = ({children}) => {
                 ...carrito,
                 { id: producto.id, title: producto.title, price: producto.price, image: producto.images[0], cantidad: 1 }
                 ]);
+                toast.success("Producto agregado");
             } else {
                 setCarrito(carrito.map(a => (a.id === producto.id ? { ...a, cantidad: a.cantidad + 1 } : a)));
+                toast.success("Producto sumado");
             }
         }
       const quitardelcarrito = producto => {
             const newArray = carrito.filter(item => item.id !== producto.id)
             setCarrito(newArray);
+            toast.success("Producto quitado");
           }
 
       const cambiarcantidaditems = (producto, cantidad) => {
         setCarrito(carrito.map(a => (a.id === producto.id ? {...a, cantidad: cantidad} : a)))
+        toast.success("Producto cantidad cambiada");
       }
 
       const importetotal = (ship) => { 
