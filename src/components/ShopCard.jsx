@@ -2,6 +2,8 @@ import { Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardFooter, Button
 import { useNavigate } from 'react-router-dom';
 import {CarritoContext} from '../context/CarritoContext';
 import {React, useContext} from 'react';
+import toast from 'react-hot-toast';
+import { Toaster} from 'react-hot-toast';
 
 function ShopCard({producto}){
 
@@ -9,6 +11,7 @@ function ShopCard({producto}){
       const { agregaralcarrito } = useContext(CarritoContext);
 
       return (
+        <>
         <Card style={{ width: '20rem' }}>
           <CardHeader className="text-center" style={{ backgroundColor: '#dee2e6', height: '18rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Card.Img variant="top" src={producto.thumbnail} style={{ width: '10rem', maxHeight: '100%', objectFit: 'contain', cursor: "pointer" }} onClick={() => {navigate('/productdetail/'+producto.id);}}/>
@@ -26,9 +29,11 @@ function ShopCard({producto}){
             </div>
           </CardBody>
           <CardFooter className="text-end" style={{ backgroundColor: '#343a40' }}>
-            <Button variant="secondary" onClick={() => {agregaralcarrito(producto)}}>Comprar</Button>
+            <Button variant="secondary" onClick={() => {agregaralcarrito(producto); toast("Producto agregado");}}>Comprar</Button>
           </CardFooter>
         </Card>
+        <div><Toaster position="bottom-center" reverseOrder={false} /></div>
+        </>
       );
     }
 

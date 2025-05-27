@@ -5,6 +5,8 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col } from 'react-bootstrap';
 import {CarritoContext} from '../context/CarritoContext';
 import {React, useContext} from 'react';
+import toast from 'react-hot-toast';
+import { Toaster} from 'react-hot-toast';
 
 function ItemCarritoLateral({producto}) {
   
@@ -20,6 +22,7 @@ function ItemCarritoLateral({producto}) {
   const { cambiarcantidaditems, quitardelcarrito } = useContext(CarritoContext);
   
   return (
+    <>
       <div className="card mb-3">
         <div className="card-body">
           <div className="d-flex justify-content-between">
@@ -53,7 +56,7 @@ function ItemCarritoLateral({producto}) {
                 <h5 className="mb-0">${(producto.price * producto.cantidad).toFixed(2)}</h5>
               </div>
               <button type="button" className="btn position-relative">
-                <FontAwesomeIcon icon={faTrashCan} onClick={() => quitardelcarrito(producto)}/>
+                <FontAwesomeIcon icon={faTrashCan} onClick={() => {quitardelcarrito(producto); toast("Producto quitado");}}/>
                 </button>
             </div>
                 </Col>
@@ -61,6 +64,8 @@ function ItemCarritoLateral({producto}) {
           </div>
         </div>
       </div>
+      <div><Toaster position="bottom-center" reverseOrder={false} /></div>
+      </>
   );
 }
 

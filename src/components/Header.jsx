@@ -12,7 +12,7 @@ function Header(){
                 <Image src="logo.png" style={{height:"3em"}} />
                 
                 <Navbar.Brand>Shoppineando</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                
                 <Navbar.Brand></Navbar.Brand>
                 <Navbar.Text className="ms-auto">
                 </Navbar.Text>

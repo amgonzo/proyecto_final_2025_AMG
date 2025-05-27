@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import {CarritoContext} from '../context/CarritoContext';
 import {React, useContext} from 'react';
+import toast from 'react-hot-toast';
+import { Toaster} from 'react-hot-toast';
 
 function ItemShoppingCard({producto}) {
 
@@ -18,6 +20,7 @@ function ItemShoppingCard({producto}) {
     // Aquí puedes realizar otras acciones con la nueva cantidad
   }; 
   return (
+    <>
       <div className="card mb-3">
         <div className="card-body">
           <div className="d-flex justify-content-between">
@@ -46,12 +49,14 @@ function ItemShoppingCard({producto}) {
                 <h5 className="mb-0">${(producto.price * producto.cantidad).toFixed(2)}</h5>
               </div>
               <button type="button" className="btn position-relative">
-                <FontAwesomeIcon icon={faTrashCan} onClick={() => quitardelcarrito(producto)}/>
+                <FontAwesomeIcon icon={faTrashCan} onClick={() => {quitardelcarrito(producto); toast("Producto agregado");}}/>
                 </button>
             </div>
           </div>
         </div>
       </div>
+      <div><Toaster position="bottom-center" reverseOrder={false} /></div>
+      </>
   );
 }
 
