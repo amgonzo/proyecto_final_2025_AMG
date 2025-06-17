@@ -11,13 +11,16 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ShoppingCart from './pages/ShoppingCart';
 import ProductDetail from './pages/ProductDetail';
 import {CarrtioProvider} from './context/CarritoContext';
+import {AuthProvider} from './context/AuthContext';
 import { Container } from 'react-bootstrap';
 import { Toaster} from 'react-hot-toast';
+import Clientes from './pages/Clientes';
 
 function App() {
   //const [carrito, setCarrito] = useState([]);
   return (
     <div>
+      <AuthProvider>
        <CarrtioProvider>
         <Router>
           <div className="d-flex flex-column min-vh-100">
@@ -34,6 +37,9 @@ function App() {
                 <Route path="/perfil" element={
                   <ProtectedRoute><Perfil /></ProtectedRoute>
                 } />
+                <Route path="/clientes" element={
+                  <ProtectedRoute><Clientes /></ProtectedRoute>
+                } />
             </Routes>
             </Container>
             <Footer/>
@@ -41,6 +47,7 @@ function App() {
           </div>
         </Router>
       </CarrtioProvider>
+      </AuthProvider>
     </div>
   )
 }

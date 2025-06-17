@@ -36,6 +36,7 @@ const Navegacion = () => {
               {isAuth && (
               <>
               <Nav.Link as={Link} to="/perfil">Perfil </Nav.Link>
+              <Nav.Link as={Link} to="/clientes">Clientes </Nav.Link>
               </>
               )}
             </Nav>

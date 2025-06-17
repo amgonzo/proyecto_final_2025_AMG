@@ -3,12 +3,15 @@ import { Container } from "react-bootstrap";
 import {Form, Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useAuth } from '../context/AuthContext';
 
 const Login=()=>
     {
         const navigate = useNavigate();
         const [password, setPassword] = useState('');
         const [email, setEmail] = useState('');
+        const { login } = useAuth();
+
 
         const emailEsValido = (email) => {
             const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,9 +43,19 @@ const Login=()=>
               setPassword('');
               setEmail('');
 
-            localStorage.setItem('auth', 'true');
-            navigate('/perfil');
-            localStorage.setItem('id', 'userAdmin');
+              if (login(email, password)) 
+                {
+                  localStorage.setItem('auth', 'true');
+                  navigate('/perfil');
+                  localStorage.setItem('id', 'userAdmin');      
+                }
+              else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Login',
+                  text: 'Usuario o contraseña no valido.',
+                });
+              }
           };
 
     return(
