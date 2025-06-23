@@ -15,6 +15,7 @@ import {AuthProvider} from './context/AuthContext';
 import { Container } from 'react-bootstrap';
 import { Toaster} from 'react-hot-toast';
 import Clientes from './pages/Clientes';
+import Extras from './pages/Extras';
 
 function App() {
   //const [carrito, setCarrito] = useState([]);
@@ -39,6 +40,9 @@ function App() {
                 } />
                 <Route path="/clientes" element={
                   <ProtectedRoute><Clientes /></ProtectedRoute>
+                } />
+                <Route path="/extras" element={
+                  <ProtectedRoute><Extras /></ProtectedRoute>
                 } />
             </Routes>
             </Container>

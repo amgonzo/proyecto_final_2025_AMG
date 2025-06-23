@@ -34,7 +34,7 @@ function ItemShoppingCard({producto}) {
             </div>
             <div className="d-flex flex-row align-items-center ">
               <div style={{width: "80px", marginLeft:"15px"}}>
-                <h6 className="mb-0">${producto.price.toFixed(2)}</h6>
+                <h6 className="mb-0">${producto.price}</h6>
               </div>
               <div style={{width: "110px"}} >
                 <h5 className="fw-normal mb-0"><NumberInputWithControls 

@@ -19,7 +19,7 @@ function Paginacion ({cantidad, itemsporpagina, paginaactual, setPagina}) {
             for (let number = 1; number <= ultimo; number++) 
                 {
                     items.push(
-                        <Pagination.Item key={number} active={number === paginaactual} onClick={() => setPagina(number)}>
+                        <Pagination.Item key={number} active={number === paginaactual}  onClick={() => setPagina(number)}>
                         {number}
                         </Pagination.Item>,		
                         );

@@ -28,8 +28,8 @@ function CarritoLateral({show, setShow}) {
         <Offcanvas.Body>
         {(carrito.length == 0) ? <div>Carrito vacio</div> :
 
-        carrito.map((compra) =>(
-                <Col key={compra.id}>
+        carrito.map((compra, index) =>(
+                <Col key={index}>
                 <ItemCarritoLateral producto={compra}/>
                 </Col>
                 ))

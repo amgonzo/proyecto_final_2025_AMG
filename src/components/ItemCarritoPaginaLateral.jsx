@@ -40,7 +40,7 @@ function ItemCarritoLateral({producto}) {
             <Col>
             <div className="d-flex flex-row align-items-center ">
               <div>
-                <h6 className="mb-0" style={{width: "80px"}}>${producto.price.toFixed(2)}</h6>
+                <h6 className="mb-0" style={{width: "80px"}}>${producto.price}</h6>
               </div>
               <div style={{width: "110px"}} >
                 <h5 className="fw-normal mb-0"><NumberInputWithControls 

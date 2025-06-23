@@ -10,24 +10,44 @@ const Shop = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    //let url = 'https://api.escuelajs.co/api/v1/products';
-    //let  url='https://fakestoreapi.com/products';
-    let url='https://dummyjson.com/products';
-    if (categoria) {
-      //url = 'https://api.escuelajs.co/api/v1/products/?categoryId=' + categoria;
-      url = 'https://dummyjson.com/products/category/' + categoria;
+ const fechProductos = async() => {
+    
+    setLoading(true);
+    try 
+    {
+      let url='https://dummyjson.com/products';
+      if (categoria) {
+        //url = 'https://api.escuelajs.co/api/v1/products/?categoryId=' + categoria;
+        if (categoria != 'extras')
+        {url = 'https://dummyjson.com/products/category/' + categoria;}
+        else
+        {url = 'https://68515d448612b47a2c09be5a.mockapi.io/api/v1/products';}
+      }
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Error al obtener productos");  
+      
+      const data = await res.json();
+      if(categoria != 'extras'){setProductos(data.products);}
+      else{
+        const data2 = data.map(a => (a.id === a.id ? { ...a, id: parseInt(a.id) + 1000 } : a)); // Suma 1 al elemento        
+        setProductos(data2);
+
+      }
     }
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        setProductos(data.products);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Error de carga de API", err);
-        setLoading(false);
-      });
+  catch (error) 
+    {
+      alert("Error cargando datos");
+      console.error(error);
+    } 
+    //Independientemente de que haya ocurrido un error o no, indica que terminó la carga de datos  
+    finally 
+    {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fechProductos();
   }, [categoria]);
 
   if(loading)

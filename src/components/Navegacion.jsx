@@ -37,12 +37,13 @@ const Navegacion = () => {
               <>
               <Nav.Link as={Link} to="/perfil">Perfil </Nav.Link>
               <Nav.Link as={Link} to="/clientes">Clientes </Nav.Link>
+              <Nav.Link as={Link} to="/extras">Extras </Nav.Link>
               </>
               )}
             </Nav>
             <Nav>
             {!isAuth ? (
-              <Nav.Link as={Link} to="/login">Entrar</Nav.Link>
+              <Nav.Link as={Link} to="/login">Administración</Nav.Link>
             ) : (
               <Button variant="outline-light" onClick={cerrarSesion}>Cerrar sesión</Button>
             )}

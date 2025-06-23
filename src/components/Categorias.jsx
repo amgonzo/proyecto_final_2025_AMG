@@ -39,6 +39,13 @@ function Categorias({ onCategoriaChange }) {
             "image": "https://cdn.dummyjson.com/product-images/groceries/apple/1.webp",
             "category":"groceries",
           },
+          {
+            "id": 6,
+            "name": "Extras",
+            "slug": "extras",
+            "image": "https://cdn.dummyjson.com/product-images/groceries/honey-jar/thumbnail.webp",
+            "category":"extras",
+          },
       ]
 
     return (

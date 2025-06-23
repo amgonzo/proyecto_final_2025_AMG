@@ -16,7 +16,7 @@ export const CarrtioProvider = ({children}) => {
             if (!findArrayElementByID(carrito, producto.id)) {
                 setCarrito([
                 ...carrito,
-                { id: producto.id, title: producto.title, price: producto.price, image: producto.images[0], cantidad: 1 }
+                { id: producto.id, title: producto.title, price: producto.price, image: producto.thumbnail, cantidad: 1 }
                 ]);
                 toast.success("Producto agregado");
             } else {

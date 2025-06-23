@@ -1,6 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import Paginacion from './Pagination';
-
+import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,10 +8,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { useState } from 'react';
 
-function Tabla({datos, titulos, openEditModal, handleDelete}){
+function TablaExtras({datos, titulos, openEditModal, handleDelete}){
     const [itemsporpagina, setItemsporPagina] = useState(5);
     const [paginaactual, setPagina] =  useState(1);
 
@@ -51,27 +53,33 @@ function Tabla({datos, titulos, openEditModal, handleDelete}){
                             <tr key={index}>
                                 
                                 <td>{dato.id}</td>    
-                                <td>{dato.name}</td>    
-                                <td>{dato.address}</td>    
-                                <td>{dato.city}</td>    
-                                <td>{dato.state}</td>    
-                                <td>{dato.zipcode}</td>    
+                                <td>{dato.title}</td>    
+                                <td>{dato.price}</td>    
+                                <td>{dato.description.substring(0, 20) + '...' }</td>
+                                <td>{dato.category}</td>     
+                                <td>{dato.stock}</td>    
+                                <td>{dato.stockminimo}</td> 
+                                <td><div>
+                            <Card.Img variant="top" src={dato.thumbnail}
+                            className="img-fluid rounded-3" alt="image item" style={{height:"100%", maxHeight: "40px", width: "100%", maxWidth: "40px"}}/>
+                        </div></td>    
                                 
                                 <td className="text-center">
                                 <Button
-                                    variant="warning"
+                                    variant="secondary"
                                     size="sm"
                                     onClick={() => openEditModal(dato)}
                                     className="me-2"
                                 >
-                                    Editar
+                                    <FontAwesomeIcon icon={faPen} />
                                 </Button>
+                                
                                 <Button
-                                    variant="danger"
+                                    variant="secondary"
                                     size="sm"
                                     onClick={() => handleDelete(dato.id)}
                                 >
-                                    Eliminar
+                                   <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                                 </td>
                             </tr>
@@ -105,4 +113,4 @@ function Tabla({datos, titulos, openEditModal, handleDelete}){
     )
 }
 
-export default Tabla;
+export default TablaExtras;

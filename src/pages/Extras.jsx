@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table, Button, Modal, Form } from "react-bootstrap";
-import TablaClientes from "../components/TablaClientes";
+import TablaExtras from "../components/TablaExtras";
 import {Image }from "react-bootstrap";
 
-const API_URL = "https://68515d448612b47a2c09be5a.mockapi.io/api/v1/clients";
+const API_URL = "https://68515d448612b47a2c09be5a.mockapi.io/api/v1/products";
 
-const Clientes = () => {
+const Extras = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("create"); 
-  const [currentItem, setCurrentItem] = useState({ name: "", address: "", city: "", state: "", zipcode: "" });
+  const [currentItem, setCurrentItem] = useState({ title: "", price: "", description: "", category: "", stock: "", stockminimo: "", thumbnail: "" });
 
-  const titulos = ["ID","Nombre y Apellido","Dirección","Ciudad","Provincia","Código Postal","Acciones"];
+  const titulos = ["ID","Nombre Producto","Precio","Descripción","Categoria","Stock","Stock Minimo","Imagen", "Acciones"];
 
   // Carga inicial
   const fetchItems = async () => 
@@ -24,7 +24,7 @@ const Clientes = () => {
     {
       //Hace una petición HTTP para obtener datos desde la URL API_URL y espera a que termine     
       const res = await fetch(API_URL);
-      if (!res.ok) throw new Error("Error al obtener clientes");
+      if (!res.ok) throw new Error("Error al obtener extras");
 
       //es un método que convierte el cuerpo de la respuesta (que normalmente está en formato texto JSON) a un objeto JavaScript.
       const data = await res.json();
@@ -64,11 +64,11 @@ const Clientes = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(currentItem),
       });
-      if (!res.ok) throw new Error("Error al crear el cliente");
+      if (!res.ok) throw new Error("Error al crear el producto");
       await fetchItems();
       handleCloseModal();
     } catch (error) {
-      alert("Error creando cliente");
+      alert("Error creando producto");
       console.error(error);
     }
   };
@@ -80,23 +80,23 @@ const Clientes = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(currentItem),
       });
-      if (!res.ok) throw new Error("Error al actualizar cliente");
+      if (!res.ok) throw new Error("Error al actualizar producto");
       await fetchItems();
       handleCloseModal();
     } catch (error) {
-      alert("Error actualizando cliente");
+      alert("Error actualizando producto");
       console.error(error);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("¿Seguro que quieres eliminar este cliente?")) {
+    if (window.confirm("¿Seguro que quieres eliminar este producto?")) {
       try {
         const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!res.ok) throw new Error("Error al eliminar cliente");
+        if (!res.ok) throw new Error("Error al eliminar producto");
         await fetchItems();
       } catch (error) {
-        alert("Error eliminando cliente");
+        alert("Error eliminando producto");
         console.error(error);
       }
     }
@@ -104,7 +104,7 @@ const Clientes = () => {
 
   const openCreateModal = () => {
     setModalMode("create");
-    setCurrentItem({ name: "", address: "", city: "", state: "", zipcode: "" });
+    setCurrentItem({ title: "", price: "", description: "", category: "", stock: "", stockminimo: "", thumbnail: "" });
     setShowModal(true);
   };
 
@@ -120,73 +120,94 @@ const Clientes = () => {
 
   return (
     <Container className="mt-4">
-      <h1>Clientes</h1>
+      <h1>Extras</h1>
       <Button variant="secondary" onClick={openCreateModal} className="mb-3">
-        Crear nuevo cliente
+        Crear nuevo producto
       </Button>
 
       {loading ? (
         <p>Cargando...</p>
       ) : (
 
-        <TablaClientes datos={items} titulos={titulos} openEditModal={openEditModal} handleDelete={handleDelete}/>
+        <TablaExtras datos={items} titulos={titulos} openEditModal={openEditModal} handleDelete={handleDelete}/>
       )}
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {modalMode === "create" ? "Crear nuevo cliente" : "Editar cliente"}
+            {modalMode === "create" ? "Crear nuevo producto" : "Editar producto"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formName">
-              <Form.Label>Nombre y Apellido</Form.Label>
+              <Form.Label>Nombre del Producto</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingrese el nombre y apellido"
-                name="name"
-                value={currentItem.name}
+                placeholder="Ingrese el nombre del producto"
+                name="title"
+                value={currentItem.title}
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formAddress">
-              <Form.Label>Dirección</Form.Label>
+            <Form.Group className="mb-3" controlId="formPrice">
+              <Form.Label>Precio</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Ingrese la dirección"
-                name="address"
-                value={currentItem.address}
+                type="number"
+                placeholder="Ingrese el precio"
+                name="price"
+                value={currentItem.price}
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formCity">
-              <Form.Label>Ciudad</Form.Label>
+            <Form.Group className="mb-3" controlId="formDescription">
+              <Form.Label>Descripción</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Ingrese la ciudad"
-                name="city"
-                value={currentItem.city}
+                as="textarea"
+                rows={3}
+                placeholder="Ingrese la descripción"
+                name="description"
+                value={currentItem.description}
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formState">
-              <Form.Label>Provincia</Form.Label>
+            <Form.Group className="mb-3" controlId="formCategory">
+              <Form.Label>Categoria</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingrese la provincia"
-                name="state"
-                value={currentItem.state}
+                placeholder="Ingrese la categoria"
+                name="category"
+                value={currentItem.category}
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formZipCode">
-              <Form.Label>Código Postal</Form.Label>
+            <Form.Group className="mb-3" controlId="formStock">
+              <Form.Label>Stock</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingrese el código postal"
-                name="zipcode"
-                value={currentItem.zipcode}
+                placeholder="Ingrese el stock"
+                name="stock"
+                value={currentItem.stock}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formStockMinimo">
+              <Form.Label>Stock Minimo</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingrese el stock"
+                name="stockminimo"
+                value={currentItem.stockminimo}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formThumbnail">
+              <Form.Label>Imagen</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingrese la url de la imagen"
+                name="thumbnail"
+                value={currentItem.thumbnail}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -199,7 +220,7 @@ const Clientes = () => {
           <Button
             variant="primary"
             onClick={modalMode === "create" ? handleCreate : handleUpdate}
-            disabled={!currentItem.name || !currentItem.address || !currentItem.city || !currentItem.state || !currentItem.zipcode}
+            disabled={!currentItem.title || !currentItem.price || !currentItem.description || !currentItem.category || !currentItem.stock || !currentItem.stockminimo || !currentItem.thumbnail}
           >
             {modalMode === "create" ? "Crear" : "Actualizar"}
           </Button>
@@ -209,4 +230,4 @@ const Clientes = () => {
   );
 };
 
-export default Clientes;
+export default Extras;

@@ -22,7 +22,7 @@ function ShopCard({producto}){
             </div>
             <div>
               <CardSubtitle className="text-end">Price: 10% discount</CardSubtitle>
-              <CardSubtitle className="text-end"><div className="text-decoration-line-through">${producto.price.toFixed(2)}</div> <h2>${(0.9 * producto.price).toFixed(2)}</h2></CardSubtitle>
+              <CardSubtitle className="text-end"><div className="text-decoration-line-through">${producto.price}</div> <h2>${(0.9 * producto.price).toFixed(2)}</h2></CardSubtitle>
             </div>
           </CardBody>
           <CardFooter className="text-end" style={{ backgroundColor: '#343a40' }}>

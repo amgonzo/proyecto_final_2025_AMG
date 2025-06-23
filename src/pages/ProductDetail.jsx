@@ -8,11 +8,22 @@ const ProductDetail=()=>
         const {idProducto} = useParams();
         const [producto, setProducto] = useState();
         const [loading, setLoading] = useState(true);
+        const [notimage, setNotImages] = useState(false);
 
         useEffect(()=>
             {
-              // hacer el pedido de la api
-              fetch('https://dummyjson.com/products/'+idProducto)
+              let idP = idProducto;
+              let url = '';
+              if (idProducto>1000)
+               {idP = idProducto - 1000;
+                url='https://68515d448612b47a2c09be5a.mockapi.io/api/v1/products/';
+                setNotImages(true);}
+
+              else{url='https://dummyjson.com/products/';
+                setNotImages(false);
+              }
+                // hacer el pedido de la api
+              fetch(url+idP)
               .then(res=>res.json())
               .then(data=>{
                 setProducto(data);
@@ -39,7 +50,8 @@ const ProductDetail=()=>
                 <p>Detalle del Producto</p>
                 <h2>{producto.title}</h2>
                 <h5>{producto.description}</h5>
-                {producto.images.map ((imagen) => (
+                {notimage?<Card.Img variant="top" src={producto.thumbnail} className="img-fluid rounded-3" alt="Shopping item" style={{width: "65px", margin:"10px"}}/>:
+                producto.images.map ((imagen) => (
                     <Card.Img variant="top" src={imagen}
                     className="img-fluid rounded-3" alt="Shopping item" style={{width: "65px", margin:"10px"}}/>
                 ))}
