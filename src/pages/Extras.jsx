@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Table, Button, Modal, Form } from "react-bootstrap";
 import TablaExtras from "../components/TablaExtras";
 import {Image }from "react-bootstrap";
+import Swal from 'sweetalert2';
 
 const API_URL = "https://68515d448612b47a2c09be5a.mockapi.io/api/v1/products";
 
@@ -35,7 +36,11 @@ const Extras = () => {
     } 
     catch (error) 
     {
-      alert("Error cargando datos");
+      Swal.fire({
+        icon: 'error',
+        title: 'Extras',
+        text: 'Error cargando datos',
+      });
       console.error(error);
     } 
     //Independientemente de que haya ocurrido un error o no, indica que terminó la carga de datos  
@@ -68,7 +73,11 @@ const Extras = () => {
       await fetchItems();
       handleCloseModal();
     } catch (error) {
-      alert("Error creando producto");
+      Swal.fire({
+        icon: 'error',
+        title: 'Extras',
+        text: 'Error creando producto',
+      });
       console.error(error);
     }
   };
@@ -84,7 +93,11 @@ const Extras = () => {
       await fetchItems();
       handleCloseModal();
     } catch (error) {
-      alert("Error actualizando producto");
+      Swal.fire({
+        icon: 'error',
+        title: 'Extras',
+        text: 'Error actualizando producto',
+      });
       console.error(error);
     }
   };
@@ -96,7 +109,11 @@ const Extras = () => {
         if (!res.ok) throw new Error("Error al eliminar producto");
         await fetchItems();
       } catch (error) {
-        alert("Error eliminando producto");
+        Swal.fire({
+          icon: 'error',
+          title: 'Extras',
+          text: 'Error eliminando producto',
+        });
         console.error(error);
       }
     }
