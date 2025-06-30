@@ -9,3 +9,6 @@ Use react bootstrap en algunos lugares y en otros no porque queria hacer el carr
 Tambien tube que passar el carrito por todos lados porque en la preentrega decia usar useSatate, luego lo cambie a context y creo que quedo bien.
 
 Espero sea de su agrado.
+
+En la Etapa 2 se agregaron los ABM de Clientes y Extras que son los productos generados de Mockapi
+para acceder a administracion el usuario es admin@admin.com y la clave 12345
