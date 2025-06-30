@@ -4,11 +4,14 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ShopCard from '../components/ShopCard';
 import Categorias from "../components/Categorias";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const Shop = () => {
   const [categoria, setCategoria] = useState(null);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [busqueda, setBusqueda] = useState('');
 
  const fechProductos = async() => {
     
@@ -31,7 +34,6 @@ const Shop = () => {
       else{
         const data2 = data.map(a => (a.id === a.id ? { ...a, id: parseInt(a.id) + 1000 } : a)); // Suma 1 al elemento        
         setProductos(data2);
-
       }
     }
   catch (error) 
@@ -50,6 +52,10 @@ const Shop = () => {
     fechProductos();
   }, [categoria]);
 
+  const filtrados = productos.filter(p =>
+    p.title.toLowerCase().includes(busqueda.toLowerCase())
+  );
+  
   if(loading)
     {
         return(
@@ -61,10 +67,20 @@ const Shop = () => {
       return (
         <Container className="mt-4" style={{ marginBottom: 50 }}>
           <h2>Shop</h2>
+          <div className="input-group mb-3">
+        <span className="input-group-text"><FontAwesomeIcon icon={faMagnifyingGlass} /></span>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Buscar producto..."
+          value={busqueda}
+          onChange={e => setBusqueda(e.target.value)}
+        />
+      </div>
           <Categorias onCategoriaChange={setCategoria} />
           <Container className='mt-4'>
             <Row xs={1} md={2} lg={3} className="g-4 h-100">
-              {productos.map((producto) => (
+              {filtrados.map((producto) => (
                 <Col key={producto.id} className="d-flex align-items-stretch">
                   <ShopCard producto={producto} />
                 </Col>
