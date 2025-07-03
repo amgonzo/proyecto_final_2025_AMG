@@ -74,7 +74,7 @@ function TablaClientes({datos, titulos, openEditModal, handleDelete}){
                                     size="sm"
                                     onClick={() => handleDelete(dato.id)}
                                 >
-                                   <FontAwesomeIcon icon={faTrash} />
+                                <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                                 </td>
                             </tr>
